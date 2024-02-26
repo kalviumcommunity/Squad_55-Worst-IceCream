@@ -3,8 +3,10 @@ const app = express();
 const port = 3000;
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
+const route = require('./routes')
 
 dotenv.config()
+app.use(route)
 
 let connectionStatus = 'disconnected';
 
@@ -25,7 +27,6 @@ const stopDB = async () => {
 
 app.get('/', (req, res) => {
   res.send(connectionStatus);
-  
 });
 
   app.listen(port, () => {
