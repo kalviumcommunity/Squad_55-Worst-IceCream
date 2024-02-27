@@ -29,6 +29,11 @@ app.get('/', (req, res) => {
   res.send(connectionStatus);
 });
 
+app.get('/ping', (req, res) => {
+  res.send("pong");
+});
+
+
   app.listen(port, () => {
     startDB()
     console.log(`🚀 server running on PORT: ${port}`);
