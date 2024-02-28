@@ -4,36 +4,42 @@ function App() {
 
     return (
         <>
-            <div >
+            <div className='mains'>
+
+            <div className='tagline'>
+                   <h2>Taste the Mistake: A regrettable spoonful in every bite! 😬</h2>
+                </div>
                 <nav className='navbar'>
-
-
                     <div className='searchbar'>
                         <input type="text" placeholder="Search..." />
                     </div>
 
-
-                    <div>
-                        <p>Home</p>
+                    <div className='about'>
+                        <p>About</p>
                     </div>
                 </nav>
-                <div className='main'>
-                    <div className='server'>
-                        <div className='image'>
-                            <img src="https://as2.ftcdn.net/v2/jpg/02/42/62/57/1000_F_242625767_X6Anv6cJBy2M5sqWSQChIstIWtDnRGDp.jpg" alt="" />
-                        </div>
-                        <div className='hi'>
-                            <div className='details'>
-                                <div className='taste'>Taste</div>
-                                <div className='color'>Color</div>
-                            </div>
 
-                            <div className='rating'> rating
+               <div className='content'>
+                  <div className='images'>
+                    <img src="" alt="" />
+                  </div>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                  <div className='flavour'>
+                    Ice-cream name
+                  </div>
+
+                  <div className='features'>
+                    <p>Sugar-free</p>
+                    <p>Taste</p>
+                    <p>Color</p>
+                  </div>
+
+                  <div className='rating'>
+                    Ratings
+                  </div>
+               </div>
+                
+                
             </div>
         </>
     )
