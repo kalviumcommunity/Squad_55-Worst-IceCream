@@ -21,7 +21,7 @@ function App() {
 
                <div className='content'>
                   <div className='images'>
-                    <img src="" alt="" />
+                    <img src="https://hellogiggles.com/wp-content/uploads/sites/7/2018/03/16/Sriracha-Ice-Cream-Sundae-still-sixteen-2000.jpg?quality=82&strip=1&resize=640%2C360" alt="" />
                   </div>
 
                   <div className='flavour'>
@@ -35,7 +35,7 @@ function App() {
                   </div>
 
                   <div className='rating'>
-                    Ratings
+                    <p>Rating : </p>
                   </div>
                </div>
                 
