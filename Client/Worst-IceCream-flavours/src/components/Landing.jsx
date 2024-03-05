@@ -1,48 +1,66 @@
-import './Landing.css'
+import './Landing.css';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
+  const [state, setState] = useState([]);
 
-    return (
-        <>
-            <div className='mains'>
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://squad-55-worst-icecream-isharode.onrender.com/icecream');
+        setState(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-            <div className='tagline'>
-                   <h2>Taste the Mistake: A regrettable spoonful in every bite! 😬</h2>
+    fetchData();
+  }, []);
+
+  return (
+    <>
+      <div className='main'>
+       
+        <nav className='navbar'>
+          <div className='searchbar'>
+            <input type="text" placeholder="Search..." />
+          </div>
+
+          <div className='about'>
+            <p>About</p>
+          </div>
+        </nav>
+        <div className='tagline'>
+          <h2>Taste the Mistake: A regrettable spoonful in every bite! 😬 </h2>
+        </div>
+
+        <div className='content'>
+          <div className='card-container'>
+            {state.map(player => (
+              <div className='card' key={player.id}>
+                <div className='images'>
+                  <img src={player.image} alt={player.flavour} />
                 </div>
-                <nav className='navbar'>
-                    <div className='searchbar'>
-                        <input type="text" placeholder="Search..." />
-                    </div>
 
-                    <div className='about'>
-                        <p>About</p>
-                    </div>
-                </nav>
+              <div className='flav'>
+               <h2>{player.flavour}</h2>
+              </div>
+                <div className='taste-color'>
+                  <p>Taste: {player.taste}</p>
+                  <p>Color: {player.color}</p>
+                </div>
 
-               <div className='content'>
-                  <div className='images'>
-                    <img src="https://hellogiggles.com/wp-content/uploads/sites/7/2018/03/16/Sriracha-Ice-Cream-Sundae-still-sixteen-2000.jpg?quality=82&strip=1&resize=640%2C360" alt="" />
-                  </div>
-
-                  <div className='flavour'>
-                    Ice-cream name
-                  </div>
-
-                  <div className='features'>
-                    <p>Sugar-free</p>
-                    <p>Taste</p>
-                    <p>Color</p>
-                  </div>
-
-                  <div className='rating'>
-                    <p>Rating : </p>
-                  </div>
-               </div>
-                
-                
-            </div>
-        </>
-    )
+                <div>
+                  <p>Rating: {player.rating}/10</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default App
+export default App;
