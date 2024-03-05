@@ -3,8 +3,8 @@
 .navbar {
     display: flex;
     justify-content: space-between;
-    background-color: rgba(52, 167, 210, 0.4);
-    
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 5px solid #000000;
     padding: 10px;
     border-radius: 20px;
 }
@@ -12,7 +12,7 @@
 input {
     width: 700px;
     height: 45px;
-    background-color: #3493d2;
+    background-color: #000000;
     color: white;
     font-size: 25px;
     padding-left: 10px;
@@ -26,10 +26,23 @@ input {
 }
 
 body {
-    background-image: url('https://static.vecteezy.com/system/resources/previews/025/401/952/non_2x/blue-ice-cream-pattern-background-seamless-repeating-wallpaper-vector.jpg')
-    ;
     position: relative;
+    background-image: url('https://static.vecteezy.com/system/resources/thumbnails/025/401/952/small/blue-ice-cream-pattern-background-seamless-repeating-wallpaper-vector.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
     font-family: 'Shantell Sans';
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: inherit;
+    filter: blur(3px); 
+    z-index: -1; 
 }
 
 
@@ -37,11 +50,14 @@ body {
 img {
     height: 300px;
     width: 300px;
+    border: 5px solid white;
+    border-radius: 40px;
+   
 }
 
 .about {
     margin-right: 10px;
-    background-color: #3493d2;
+    background-color: #000000;
     color: white;
     border-radius: 20px;
     padding: 1px;
@@ -59,7 +75,6 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #3493d2;
     color: white;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -67,18 +82,31 @@ img {
 }
 
 .content {
-    margin-top: 40px;
-    background-color: #3493d2;
-    border-radius: 30px;
-    width: 20%;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 30px;
-}
-.images, .flavour, .features, .rating {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
-}
+  }
+  
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    background-color: white;
+  }
+  
+  .images img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    padding-top: 10px;
+  }
 
+  .tagline {
+    color: black;
+  }
