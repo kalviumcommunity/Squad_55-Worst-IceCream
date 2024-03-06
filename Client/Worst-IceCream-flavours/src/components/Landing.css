@@ -9,7 +9,7 @@
     border-radius: 20px;
 }
 
-input {
+.input {
     width: 700px;
     height: 45px;
     background-color: #000000;
@@ -41,7 +41,7 @@ body::before {
     bottom: 0;
     left: 0;
     background: inherit;
-    filter: blur(3px); 
+    filter: blur(5px); 
     z-index: -1; 
 }
 
@@ -50,7 +50,6 @@ body::before {
 img {
     height: 300px;
     width: 300px;
-    border: 5px solid white;
     border-radius: 40px;
    
 }
@@ -98,15 +97,30 @@ img {
     padding: 10px;
     text-align: center;
     background-color: white;
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+
   }
   
+  .card:hover {
+    transform: scale(1.05);
+    background-color: #000000;
+    color: white;
+}
+
   .images img {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-    padding-top: 10px;
+    padding-top: 15px;
+    
   }
 
   .tagline {
     color: black;
+  }
+
+  .login {
+    color: white;
   }

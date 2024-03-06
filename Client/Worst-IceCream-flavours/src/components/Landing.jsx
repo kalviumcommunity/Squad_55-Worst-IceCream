@@ -1,6 +1,7 @@
 import './Landing.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 function App() {
   const [state, setState] = useState([]);
@@ -24,11 +25,14 @@ function App() {
        
         <nav className='navbar'>
           <div className='searchbar'>
-            <input type="text" placeholder="Search..." />
+            <input className='input' type="text" placeholder="Search..." />
           </div>
 
           <div className='about'>
-            <p>About</p>
+          <NavLink to="/form" className="register-button">
+            <p className='login'>Login</p>
+          </NavLink>
+            
           </div>
         </nav>
         <div className='tagline'>
