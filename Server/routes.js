@@ -40,4 +40,13 @@ router.get('/icecream',async(req,res)=>{
     }
 })
 
+router.post('/add',async(req,res)=>{
+    try{
+        const add = userModel.create(req.body)
+        res.send(data)
+    }catch(err){
+        console.log(err)
+    }
+})
+
 module.exports = router;
