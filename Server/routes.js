@@ -3,16 +3,15 @@ const router = express.Router()
 const {getStatus} =require('./db')
 const {userModel} = require('./schema')
 
-
+router.use(express.json())
 router.get('/', async (req, res) => {
     const connectionStatus = await getStatus()
     res.send(connectionStatus)
  })
   
-  router.get('/ping', (req, res) => {
+router.get('/ping', (req, res) => {
     res.send("pong");
   });
-
 
 router.get("/get", (req,res)=>{
     res.send("It's a get request")
@@ -30,7 +29,6 @@ router.delete("/delete",(req,res)=>{
     res.send("It's a delete request")
 })
 
-
 router.get('/icecream',async(req,res)=>{
     try{
         const test = await userModel.find()
@@ -40,12 +38,15 @@ router.get('/icecream',async(req,res)=>{
     }
 })
 
-router.post('/add',async(req,res)=>{
+router.post('/add', (req,res)=>{
     try{
         const add = userModel.create(req.body)
-        res.send(add)
+         console.log(add)
+        res.send(req.body)
     }catch(err){
         console.log(err)
+        res.send("error");
+
     }
 })
 
