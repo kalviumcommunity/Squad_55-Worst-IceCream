@@ -124,3 +124,25 @@ img {
   .login {
     color: white;
   }
+
+
+.up-del{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 21px;
+}
+
+  .update{
+ background-color: green;
+ padding: 10px;
+ color: white;
+ font-size: 19px;
+  }
+
+  .delete{
+background-color: red;
+padding: 10px;
+color: white;
+font-size: 19px;
+  }
