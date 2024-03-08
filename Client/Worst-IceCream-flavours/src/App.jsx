@@ -2,6 +2,7 @@
 import './App.css'
 import Landing from './components/Landing'
 import Form from './components/Form'
+import FormUpdate from './components/FormUpdate'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Landing />} />
       <Route path="/form" element={<Form />} />
+      <Route path="/change" element={<FormUpdate/>} />
     </Routes>
   </BrowserRouter>
   )

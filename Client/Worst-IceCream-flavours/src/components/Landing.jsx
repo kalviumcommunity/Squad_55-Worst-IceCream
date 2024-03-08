@@ -4,7 +4,9 @@ import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 
 function App() {
+
   const [state, setState] = useState([]);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,6 +17,7 @@ function App() {
         console.error(error);
       }
     };
+
 
     fetchData();
   }, []);
@@ -30,7 +33,7 @@ function App() {
 
           <div className='about'>
           <NavLink to="/form" className="register-button">
-            <p className='login'>Login</p>
+            <p className='login'>Add</p>
           </NavLink>
             
           </div>
@@ -57,6 +60,14 @@ function App() {
 
                 <div>
                   <p>Rating: {player.rating}/10</p>
+                </div>
+
+                <div className='up-del'>
+                <NavLink to="/change">
+                <button className='update'>Update</button>
+                </NavLink>
+                  
+                  <button className='delete'>Delete</button>
                 </div>
               </div>
             ))}
