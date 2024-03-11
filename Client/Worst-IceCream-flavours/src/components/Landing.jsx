@@ -23,7 +23,7 @@ function App() {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`https://squad-55-worst-icecream-isharode.onrender.com/delete/${id}`);
-      // After deletion, fetch the updated data
+    
       const response = await axios.get('https://squad-55-worst-icecream-isharode.onrender.com/icecream');
       setState(response.data);
     } catch (error) {
@@ -50,28 +50,28 @@ function App() {
 
         <div className='content'>
           <div className='card-container'>
-            {state.map((player) => {
-              console.log("Current Player:", player);
+            {state.map((icecream) => {
+              console.log("Current icecream:", icecream);
               return (
-                <div className='card' key={player._id}>
+                <div className='card' key={icecream._id}>
                   <div className='images'>
-                    <img src={player.image} alt={player.flavour} />
+                    <img src={icecream.image} alt={icecream.flavour} />
                   </div>
                   <div className='flav'>
-                    <h2>{player.flavour}</h2>
+                    <h2>{icecream.flavour}</h2>
                   </div>
                   <div className='taste-color'>
-                    <p>Taste: {player.taste}</p>
-                    <p>Color: {player.color}</p>
+                    <p>Taste: {icecream.taste}</p>
+                    <p>Color: {icecream.color}</p>
                   </div>
                   <div>
-                    <p>Rating: {player.rating}/10</p>
+                    <p>Rating: {icecream.rating}/10</p>
                   </div>
                   <div className='up-del'>
-                    <button className='delete' onClick={() => handleDelete(player._id)}>
+                    <button className='delete' onClick={() => handleDelete(icecream._id)}>
                       Delete
                     </button>
-                    <Link to={`/update/${player._id}`} className="update">
+                    <Link to={`/update/${icecream._id}`} className="update">
                         Update
                       </Link>
                   </div>
