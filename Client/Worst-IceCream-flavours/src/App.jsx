@@ -12,7 +12,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Landing />} />
       <Route path="/form" element={<Form />} />
-      <Route path="/change" element={<FormUpdate/>} />
+      <Route path="/update/:id" element={<FormUpdate/>} />
     </Routes>
   </BrowserRouter>
   )
