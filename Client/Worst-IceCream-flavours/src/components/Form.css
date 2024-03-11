@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+
 .app {
     display: flex;
     flex-direction: column;
@@ -41,6 +44,8 @@
     width: 390px;
     height: 35px;
     border-radius: 4px;
+    font-size: 20px;
+    font-family: 'Shantell Sans';
   }
   
   label {
