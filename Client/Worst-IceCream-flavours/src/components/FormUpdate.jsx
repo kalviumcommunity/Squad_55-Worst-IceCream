@@ -8,7 +8,6 @@ import axios from "axios";
 function UpdateForm() {
   const { id } = useParams();
   const [submission, setSubmission] = useState(false);
-  const [originalData, setOriginalData] = useState({});
   const {
     register,
     handleSubmit,
@@ -25,9 +24,6 @@ function UpdateForm() {
           `https://squad-55-worst-icecream-isharode.onrender.com/icecream/${id}`
         );
         const entityData = response.data;
-
-        setOriginalData(entityData);
-
         setValue("flavour", entityData.flavour);
         setValue("taste", entityData.taste);
         setValue("color", entityData.color);

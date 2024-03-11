@@ -50,26 +50,54 @@ router.post('/add', (req,res)=>{
     }
 })
 
+app.get('/icecream/:id', async (req,res) => {
+  const _id = req.params.id
+  userModel.findById({_id})
+  .then(users => res.json(users))
+  .catch(err => console.log(err))
+})
+
+
+
 router.put("/update/:id", async (req, res) => {
+  const entityId = req.params.id;
+  const updateData = req.body;
+
+  try {
+    const updatedEntity = await userModel.findByIdAndUpdate(
+      entityId,
+      updateData,
+      { new: true }
+    );
+
+    if (!updatedEntity) {
+      return res.status(404).json({ error: "Entity not found" });
+    }
+
+    res.json(updatedEntity);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+
+  router.delete("/delete/:id", async (req, res) => {
     const entityId = req.params.id;
-    const updateData = req.body;
   
     try {
-      const updatedEntity = await userModel.findOneAndUpdate(
-        { _id: entityId },
-        updateData,
-        { new: true } 
-      );
+      const deletedEntity = await userModel.findByIdAndDelete(entityId);
   
-      if (!updatedEntity) {
+      if (!deletedEntity) {
         return res.status(404).json({ error: "Entity not found" });
       }
   
-      res.json(updatedEntity);
+      res.json({ message: "Entity deleted successfully", deletedEntity });
     } catch (err) {
       console.error(err);
       res.status(500).send("Internal Server Error");
     }
   });
+  
 
 module.exports = router;

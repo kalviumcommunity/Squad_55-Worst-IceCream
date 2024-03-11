@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
+    _id: String,
     flavour: String,
     taste: String,
     color: String,
