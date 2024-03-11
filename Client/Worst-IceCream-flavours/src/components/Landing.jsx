@@ -2,7 +2,7 @@
 import './Landing.css'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { NavLink } from 'react-router-dom';
+import { NavLink,Link } from 'react-router-dom';
 
 function App() {
   const [state, setState] = useState([]);
@@ -71,9 +71,9 @@ function App() {
                     <button className='delete' onClick={() => handleDelete(player._id)}>
                       Delete
                     </button>
-                   <button className='update'>
-                      Update
-                   </button>
+                    <Link to={`/update/${player._id}`} className="update">
+                        Update
+                      </Link>
                   </div>
                 </div>
               );
