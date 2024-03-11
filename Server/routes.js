@@ -50,6 +50,16 @@ router.post('/add', (req,res)=>{
     }
 })
 
+
+app.get('/icecream/:id', async (req,res) => {
+  const _id = req.params.id
+  userModel.findById({_id})
+  .then(users => res.json(users))
+  .catch(err => console.log(err))
+})
+
+
+
 router.put("/update/:id", async (req, res) => {
     const entityId = req.params.id;
     const updateData = req.body;
