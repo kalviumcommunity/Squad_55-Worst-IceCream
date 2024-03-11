@@ -51,7 +51,7 @@ router.post('/add', (req,res)=>{
 })
 
 
-app.get('/icecream/:id', async (req,res) => {
+router.get('/icecream/:id', async (req,res) => {
   const _id = req.params.id
   userModel.findById({_id})
   .then(users => res.json(users))
