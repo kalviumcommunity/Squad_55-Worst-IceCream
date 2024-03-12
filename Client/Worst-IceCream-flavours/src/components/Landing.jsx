@@ -71,9 +71,11 @@ function App() {
                     <button className='delete' onClick={() => handleDelete(icecream._id)}>
                       Delete
                     </button>
-                    <Link to={`/update/${icecream._id}`} className="update">
+                    <button className="update">
+                    <Link to={`/update/${icecream._id}`} className='uplink'>
                         Update
                       </Link>
+                      </button>
                   </div>
                 </div>
               );

@@ -1,103 +1,117 @@
-const express = require("express")
-const router = express.Router()
-const {getStatus} =require('./db')
-const {userModel} = require('./schema')
+const express = require('express');
+const app = express.Router();
+const { getStatus } = require('./db');
+const { userModel } = require('./schema');
+const Joi = require('joi');
 
-router.use(express.json())
-router.get('/', async (req, res) => {
-    const connectionStatus = await getStatus()
-    res.send(connectionStatus)
- })
-  
-router.get('/ping', (req, res) => {
-    res.send("pong");
-  });
+app.use(express.json());
 
-router.get("/get", (req,res)=>{
-    res.send("It's a get request")
-})
-
-router.post("/post",(req,res)=>{
-    res.send("It's a post request")
-})
-
-router.patch("/patch",(req,res)=>{
-    res.send("It's a patch request")
-})
-
-router.delete("/delete",(req,res)=>{
-    res.send("It's a delete request")
-})
-
-router.get('/icecream',async(req,res)=>{
-    try{
-        const test = await userModel.find()
-        res.json(test)
-    }catch(err){
-        console.log(err)
-    }
-})
-
-router.post('/add', (req,res)=>{
-    try{
-        const add = userModel.create(req.body)
-         console.log(add)
-        res.send(req.body)
-    }catch(err){
-        console.log(err)
-        res.send("error");
-
-    }
-})
-
-app.get('/icecream/:id', async (req,res) => {
-  const _id = req.params.id
-  userModel.findById({_id})
-  .then(users => res.json(users))
-  .catch(err => console.log(err))
-})
-
-
-
-router.put("/update/:id", async (req, res) => {
-  const entityId = req.params.id;
-  const updateData = req.body;
-
-  try {
-    const updatedEntity = await userModel.findByIdAndUpdate(
-      entityId,
-      updateData,
-      { new: true }
-    );
-
-    if (!updatedEntity) {
-      return res.status(404).json({ error: "Entity not found" });
-    }
-
-    res.json(updatedEntity);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Internal Server Error");
-  }
+// Define Joi schema for POST /add route
+const addValidationSchema = Joi.object({
+    flavour: Joi.string().required(),
+    taste: Joi.string().required(),
+    color: Joi.string().required(),
+    rating: Joi.number().required(),
+    image: Joi.string().required(),
 });
 
+// Define Joi schema for PUT /updateCard/:id route
+const updateValidationSchema = Joi.object({
+    flavour: Joi.string(),
+    taste: Joi.string(),
+    color: Joi.string(),
+    rating: Joi.number(),
+    image: Joi.string(),
+});
 
-  router.delete("/delete/:id", async (req, res) => {
-    const entityId = req.params.id;
-  
+// GET request to get connection status
+app.get('/', async (req, res) => {
+    const connectionStatus = await getStatus();
+    res.send(connectionStatus);
+});
+
+// POST request to add a new ice cream entity
+app.post('/add', async (req, res) => {
     try {
-      const deletedEntity = await userModel.findByIdAndDelete(entityId);
-  
-      if (!deletedEntity) {
-        return res.status(404).json({ error: "Entity not found" });
-      }
-  
-      res.json({ message: "Entity deleted successfully", deletedEntity });
-    } catch (err) {
-      console.error(err);
-      res.status(500).send("Internal Server Error");
+        const { error, value } = addValidationSchema.validate(req.body);
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
+        const newData = await userModel.create(req.body);
+        res.send(newData);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
     }
-  });
-  
+});
 
-module.exports = router;
+// PUT request to update ice cream entity by ID
+app.put('/update/:id', async (req, res) => {
+    try {
+        const entityId = req.params.id;
+        const updateData = req.body;
+
+        const { error, value } = updateValidationSchema.validate(updateData);
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
+
+        const updatedEntity = await userModel.findByIdAndUpdate(entityId, updateData, { new: true });
+
+        if (!updatedEntity) {
+            return res.status(404).json({ error: 'Entity not found' });
+        }
+
+        res.json(updatedEntity);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// DELETE request to delete ice cream entity by ID
+app.delete('/delete/:id', async (req, res) => {
+    try {
+        const entityId = req.params.id;
+        const deletedEntity = await userModel.findByIdAndDelete(entityId);
+
+        if (!deletedEntity) {
+            return res.status(404).json({ error: 'Entity not found' });
+        }
+
+        res.json({ message: 'Entity deleted successfully', deletedEntity });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// GET request to get ice cream entity by ID
+app.get('/icecream/:id', async (req, res) => {
+    try {
+        const _id = req.params.id;
+        const iceCreamEntity = await userModel.findById(_id);
+
+        if (!iceCreamEntity) {
+            return res.status(404).json({ error: 'Ice cream entity not found' });
+        }
+
+        res.json(iceCreamEntity);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// GET request to get all ice cream entities
+app.get('/icecream', async (req, res) => {
+    try {
+        const iceCreamEntities = await userModel.find();
+        res.json(iceCreamEntities);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+module.exports = app;
