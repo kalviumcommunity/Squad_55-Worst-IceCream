@@ -43,6 +43,19 @@ function App() {
               <p className='login'>Add</p>
             </NavLink>
           </div>
+
+          <div>
+          <NavLink to="/login" className="login-button">
+              <p className='login'>Login</p>
+            </NavLink>
+          </div>
+
+          <div>
+          <NavLink to="/signup" className="signup-button">
+             <p className='signup'>Signup
+             </p>
+            </NavLink>
+          </div>
         </nav>
         <div className='tagline'>
           <h2>Taste the Mistake: A regrettable spoonful in every bite! 😬 </h2>

@@ -64,6 +64,10 @@
  font-size: 30px;
  color: green;
   }
+
+  .mon {
+    color: white;
+  }
   
   .back:hover {
     color: rgb(221, 0, 0);
@@ -79,3 +83,15 @@
     }
   }
 
+
+.success{
+  color: white;
+}
+
+.usser {
+  color: white;
+}
+
+.login-link, .signup-link{
+  color: aqua;
+}

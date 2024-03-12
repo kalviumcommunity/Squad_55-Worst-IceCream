@@ -34,6 +34,7 @@ function App() {
               className='inp'
               type='text'
               name='flavour'
+              placeholder='ice cream'
               {...register('flavour', { required: 'Flavour is required' })}
             />
             {errors.flavour && <p className='err'>{errors.flavour.message}</p>}
@@ -43,6 +44,7 @@ function App() {
               className='inp'
               type='text'
               name='taste'
+              placeholder='taste of the icecream'
               {...register('taste', { required: 'Taste is required' })}
             />
             {errors.taste && <p className='err'>{errors.taste.message}</p>}
@@ -52,6 +54,7 @@ function App() {
               className='inp'
               type='text'
               name='color'
+              placeholder='color of the icecream'
               {...register('color', { required: 'Color is required' })}
             />
             {errors.color && <p className='err'>{errors.color.message}</p>}
@@ -60,6 +63,7 @@ function App() {
             <input
               type='number'
               name='rating'
+              placeholder='4'
               {...register('rating', { required: 'Rating is Required!' })}
             />
             {errors.rating && <p className='err'>{errors.rating.message}</p>}
@@ -68,6 +72,7 @@ function App() {
             <input
               type='text'
               name='image'
+              placeholder='http://'
               {...register('image', { required: 'Image is Required!' })}
             />
             {errors.image && <p className='err'>{errors.image.message}</p>}
