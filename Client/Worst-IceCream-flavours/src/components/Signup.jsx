@@ -1,38 +1,54 @@
-import { useForm } from "react-hook-form";
 import { useState } from "react";
-// For navigation
-import { NavLink } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from 'axios';
 import "./Form.css";
 
 function App() {
-  const [state, setState] = useState(false);
+  const [signupError, setSignupError] = useState(false);
+  const [signupSuccess, setSignupSuccess] = useState(false);
 
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  // On click of SIGN UP, showing data entered in console
-  const onSubmit = (data) => {
-    console.log(data);
-    setState(true);
-  };
+  const onSubmit = async (data) => {
+    const { username, password } = data;
+    try {
+      if (password.length < 10) {
+        setSignupError("Password should be more than 10 characters");
+        return;
+      }
 
+      const response = await axios.post('https://squad-55-worst-icecream-isharode.onrender.com/signup', { username, password });
+      if (response.status === 200) {
+        setSignupSuccess(true);
+        sessionStorage.setItem('login', true);
+        navigate("/"); // Redirect to home or desired page on successful signup
+      } else {
+        setSignupError('Signup failed');
+      }
+    } catch (err) {
+      console.error(err);
+      setSignupError('An error occurred during the signup');
+    }
+  };
 
   return (
     <div>
       <div>
-      <nav>
-      <div className="logo">sIGNUP Page</div>
-      
-      </nav>
-    </div>
+        <nav>
+          <div className="logo">SIGNUP Page</div>
+        </nav>
+      </div>
       <div className="contain">
-        
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
           <div className="app">
-            {state && <p className="success">REGISTRATION SUCCESSFUL!</p>}
+            {signupSuccess && <p className="success">REGISTRATION SUCCESSFUL!</p>}
+            {signupError && <p className="error">{signupError}</p>}
 
             <label>Username:</label>
             <input
@@ -53,7 +69,6 @@ function App() {
             />
             {errors.username && <p className="mon">{errors.username.message}</p>}
 
-
             <label>Password:</label>
             <input
               type="password"
@@ -70,7 +85,6 @@ function App() {
                   message: "Password must be less than 30 characters",
                 },
                 pattern: {
-                  // For atleast one special character included 
                   value: /.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-].*/,
                   message: "Please include at least one special character",
                 },
@@ -78,12 +92,13 @@ function App() {
             />
             {errors.password && <p className="mon">{errors.password.message}</p>}
 
-           
             <div className="button">
               <input type="submit" value="SIGNUP" />
             </div>
 
-            <p className="usser">Already a user? <NavLink to="/login" className="login-link">Login</NavLink></p>
+            <p className="usser">
+              Already a user? <NavLink to="/login" className="signup-link">Login</NavLink>
+            </p>
           </div>
         </form>
       </div>
