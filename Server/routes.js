@@ -17,6 +17,7 @@ const addValidationSchema = Joi.object({
     color: Joi.string().required(),
     rating: Joi.number().required(),
     image: Joi.string().required(),
+    created_by: Joi.string().required(),
 });
 
 
@@ -27,6 +28,7 @@ const updateValidationSchema = Joi.object({
     color: Joi.string(),
     rating: Joi.number(),
     image: Joi.string(),
+    created_by: Joi.string(),
 });
 
 // GET request to get connection status
