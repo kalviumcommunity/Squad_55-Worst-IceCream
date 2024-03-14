@@ -1,11 +1,13 @@
 // landing.jsx
-import './Landing.css'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { NavLink,Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
+import './Landing.css';
 
-function App() {
+function Landing() {
   const [state, setState] = useState([]);
+  const [authenticated, setAuthenticated] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,15 +22,32 @@ function App() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const isAuthenticated = sessionStorage.getItem('login');
+    setAuthenticated(!!isAuthenticated);
+  }, []);
+
   const handleDelete = async (id) => {
     try {
       await axios.delete(`https://squad-55-worst-icecream-isharode.onrender.com/delete/${id}`);
-    
+
       const response = await axios.get('https://squad-55-worst-icecream-isharode.onrender.com/icecream');
       setState(response.data);
     } catch (error) {
       console.error("Error deleting data:", error);
     }
+  };
+
+  const handleAdd = () => {
+    // Logic to handle adding new items
+    // Redirect to the add page or perform the necessary action
+    navigate('/form');
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('login');
+    setAuthenticated(false);
+    navigate('/');
   };
 
   return (
@@ -38,23 +57,38 @@ function App() {
           <div className='searchbar'>
             <input className='input' type="text" placeholder="Search..." />
           </div>
-          <div className='about'>
-            <NavLink to="/form" className="register-button">
-              <p className='login'>Add</p>
-            </NavLink>
+          <div className='buttons'>
+          <div>
+            {authenticated && (
+              <button className="add-button" onClick={handleAdd}>
+                <p className='addup'>Add</p>
+              </button>
+            )}
           </div>
 
-          <div>
-          <NavLink to="/login" className="login-button">
-              <p className='login'>Login</p>
-            </NavLink>
-          </div>
+          {authenticated ? (
+            <div>
+              <button className="logout-button" onClick={handleLogout}>
+                <p className='logout'>Logout</p>
+              </button>
+            </div>
+          ) : (
+            <div>
+              <NavLink to="/login">
+                <button  className="login-button">
+                <p className='loginn'>Login</p>
+                </button>
+              </NavLink>
+            </div>
+          )}
 
           <div>
-          <NavLink to="/signup" className="signup-button">
-             <p className='signup'>Signup
-             </p>
+            <NavLink to="/signup" >
+              <button className='signup-button'>
+              <p className='signup'>Signup</p>
+              </button>
             </NavLink>
+          </div>
           </div>
         </nav>
         <div className='tagline'>
@@ -64,7 +98,6 @@ function App() {
         <div className='content'>
           <div className='card-container'>
             {state.map((icecream) => {
-              console.log("Current icecream:", icecream);
               return (
                 <div className='card' key={icecream._id}>
                   <div className='images'>
@@ -80,16 +113,18 @@ function App() {
                   <div>
                     <p>Rating: {icecream.rating}/10</p>
                   </div>
-                  <div className='up-del'>
-                    <button className='delete' onClick={() => handleDelete(icecream._id)}>
-                      Delete
-                    </button>
-                    <button className="update">
-                    <Link to={`/update/${icecream._id}`} className='uplink'>
-                        Update
-                      </Link>
+                  {authenticated && (
+                    <div className='up-del'>
+                      <button className='delete' onClick={() => handleDelete(icecream._id)}>
+                        Delete
                       </button>
-                  </div>
+                      <button className="update">
+                        <Link to={`/update/${icecream._id}`} className='uplink'>
+                          Update
+                        </Link>
+                      </button>
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -100,4 +135,4 @@ function App() {
   );
 }
 
-export default App;
+export default Landing;

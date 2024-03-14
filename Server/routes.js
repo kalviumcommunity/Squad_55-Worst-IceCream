@@ -4,6 +4,9 @@ const { getStatus } = require('./db');
 const { userModel } = require('./schema');
 const { Model } = require('./userSchema');
 const Joi = require('joi');
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
+
 
 app.use(express.json());
 
@@ -14,7 +17,9 @@ const addValidationSchema = Joi.object({
     color: Joi.string().required(),
     rating: Joi.number().required(),
     image: Joi.string().required(),
+    created_by: Joi.string().required(),
 });
+
 
 // Define Joi schema for PUT /updateCard/:id route
 const updateValidationSchema = Joi.object({
@@ -23,6 +28,7 @@ const updateValidationSchema = Joi.object({
     color: Joi.string(),
     rating: Joi.number(),
     image: Joi.string(),
+    created_by: Joi.string(),
 });
 
 // GET request to get connection status
@@ -152,6 +158,21 @@ app.post('/logout',(req,res)=>{
 
     res.status(200).json({message:'Logout succesful'})
 })
+
+app.post('/auth', async(req,res) => {
+    try{const {username,password} = req.body
+    const user = {
+        "username" : username,
+        "password" : password
+    }
+    const TOKEN = jwt.sign(user,process.env.TOKEN)
+    res.cookie('token',TOKEN,{maxAge:365*24*60*60*1000})
+    res.json({"acsessToken" : TOKEN})
+}catch(err){
+    console.error(err)
+    res.status(500).json({error:'Internal Server Error'})
+}
+});
 
 
 module.exports = app;

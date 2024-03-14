@@ -6,7 +6,7 @@
     background-color: rgba(0, 0, 0, 0.4);
     border: 5px solid #000000;
     padding: 10px;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 .input {
@@ -17,7 +17,7 @@
     font-size: 25px;
     padding-left: 10px;
     border: 5px solid white;
-    border-radius: 20px;
+    border-radius: 10px;
     font-family: 'Shantell Sans';
 }
 
@@ -151,3 +151,83 @@ font-size: 19px;
     color: white;
     text-decoration: none;
   }
+
+ .logout-button {
+    color: black;
+    border: 2px solid black;
+    font-size: 23px;
+    margin: 0px;
+  }
+
+  .logout{
+    margin: 10px;
+  }
+ 
+  .login-button {
+    color: black;
+    
+    border: 2px solid black;
+    font-size: 23px;
+    margin: 0px;
+  }
+
+  .loginn{
+    margin: 10px;
+  }
+ 
+  .signup-button {
+    color: black;
+    border: 2px solid black;
+    font-size: 23px;
+    margin: 0px;
+  }
+
+  .signup{
+    margin: 10px;
+  }
+ 
+
+.add-button {
+    color: black;
+    border: 2px solid black;
+    font-size: 23px;
+    margin: 0px;
+  }
+
+  .addup{
+    margin: 10px;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 17px;
+  }
+
+  
+.logout-button,
+.login-button,
+.signup-button,
+.add-button {
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: red;
+  color: white;
+}
+
+.login-button:hover {
+  background-color: blue;
+  color: white;
+}
+
+.signup-button:hover {
+  background-color: rgb(114, 114, 0);
+  color: rgb(255, 255, 255);
+}
+
+.add-button:hover {
+  background-color: green;
+  color: white;
+}
+
