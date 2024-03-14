@@ -27,6 +27,7 @@ function App() {
       if (response.status === 200) {
         setSignupSuccess(true);
         sessionStorage.setItem('login', true);
+        sessionStorage.setItem('username', username);
         navigate("/"); // Redirect to home or desired page on successful signup
       } else {
         setSignupError('Signup failed');

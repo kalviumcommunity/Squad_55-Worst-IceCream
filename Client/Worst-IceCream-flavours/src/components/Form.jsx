@@ -12,8 +12,14 @@ function App() {
   const onSubmit = async (data) => {
     console.log(data);
 
+    const updatedData = {
+      ...data,
+      created_by: sessionStorage.getItem('username')
+    };
+
     try {
-      await axios.post('https://squad-55-worst-icecream-isharode.onrender.com/add', data);
+      await axios.post('https://squad-55-worst-icecream-isharode.onrender.com/add', updatedData);
+      console.log( updatedData)
       setSubmission(true);
       reset();
       navigate('/');
